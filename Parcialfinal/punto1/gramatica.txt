@@ -1,0 +1,44 @@
+Query → SelectStmt
+       | InsertStmt
+       | UpdateStmt
+       | DeleteStmt
+    Atributos: tipo (S), tabla (S)
+    Acciones:
+        Query.tipo = producción.tipo
+        Query.tabla = producción.tabla
+
+SelectStmt → SELECT Campos FROM Tabla Cond
+    Atributos: tipo (S), tabla (S), campos (S)
+    Acciones:
+        SelectStmt.tipo = "SELECT"
+        SelectStmt.tabla = Tabla.nombre
+        SelectStmt.campos = Campos.lista
+
+InsertStmt → INSERT INTO Tabla VALUES (Valores)
+    Atributos: tipo (S), tabla (S)
+    Acciones:
+        InsertStmt.tipo = "INSERT"
+        InsertStmt.tabla = Tabla.nombre
+
+UpdateStmt → UPDATE Tabla SET Asignaciones Cond
+    Atributos: tipo (S), tabla (S)
+    Acciones:
+        UpdateStmt.tipo = "UPDATE"
+        UpdateStmt.tabla = Tabla.nombre
+
+DeleteStmt → DELETE FROM Tabla Cond
+    Atributos: tipo (S), tabla (S)
+    Acciones:
+        DeleteStmt.tipo = "DELETE"
+        DeleteStmt.tabla = Tabla.nombre
+
+Tabla → ID
+    Atributos: nombre (S)
+    Acciones:
+        Tabla.nombre = ID.lexema
+
+Campos → Campo (, Campo)*
+    Atributos: lista (S)
+
+Valores → Valor (, Valor)*
+    Atributos: lista (S)
